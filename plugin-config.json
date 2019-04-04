@@ -1,0 +1,32 @@
+{
+    "name": "jquery_dropdown_datepicker",
+    "title": "jQuery Dropdown Datepicker",
+    "description": "A simple customizable jquery dropdown datepicker",
+    "keywords": [
+        "datepicker",
+        "plugin",
+        "dropdown",
+        "jquery"
+    ],
+    "version": "0.1.0",
+    "author": {
+        "name": "Md Shafkat Hussain Tanvir",
+        "email": "tanvir0604@gmail.com",
+        "url": "https://github.com/tanvir0604"
+    },
+    "maintainers": [
+        {
+            "name": "Md Shafkat Hussain Tanvir",
+            "email": "tanvir0604@gmail.com",
+            "url": "https://github.com/tanvir0604"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "ISC"
+        }
+    ],
+    "dependencies": {
+        "jquery": ">=1.4"
+    }
+}

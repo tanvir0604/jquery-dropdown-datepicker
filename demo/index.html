@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jquery Dropdown Datepicker</title>
+</head>
+<body>
+    
+    <input type="text" id="date">
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
+    <script src="../dist/jquery-dropdown-datepicker.min.js"></script>
+
+    <script>
+        $('#date').dropdownDatepicker({
+            defaultDate: '2019-04-07',
+            displayFormat: 'dmy',
+            monthFormat: 'short',
+            // minYear: 2000,
+            maxYear: 2020,
+            allowPast: false
+        });
+    </script>
+</body>
+</html>

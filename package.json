@@ -1,0 +1,33 @@
+{
+  "name": "jquery-dropdown-datepicker",
+  "version": "0.1.0",
+  "description": "A simple customizable jquery dropdown datepicker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanvir0604/jquery-dropdown-datepicker.git"
+  },
+  "keywords": [
+    "datepicker",
+    "plugin",
+    "dropdown",
+    "jquery"
+  ],
+  "author": "Md Shafkat Hussain Tanvir <tanvir0604@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanvir0604/jquery-dropdown-datepicker/issues"
+  },
+  "homepage": "https://github.com/tanvir0604/jquery-dropdown-datepicker#readme",
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-cli": "^1.3.2",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0"
+  }
+}

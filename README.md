@@ -4,11 +4,18 @@ A simple and customization dropdown datepicker plugin made with jQuery.
 
 ## Installation
 
-Use the package manager [bower](https://bower.io/) to install the plugin.
+Use the package manager [npm](https://www.npmjs.com) to install the plugin.
+
+```bash
+npm i jquery-dropdown-datepicker
+```
+
+Use the package manager [bower](https://bower.io) to install the plugin.
 
 ```bash
 bower install jquery-dropdown-datepicker
 ```
+
 Or simply include the plugin file to your html
 
 ```code

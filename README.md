@@ -1,17 +1,19 @@
 #jQuery Dropdown Datepicker
 
-**A simple date select plugin.**
-####[Demo](http://icklechris.github.io/jquery-date-dropdowns/)
+<!-- **A simple date select plugin.**
+####[Demo](http://icklechris.github.io/jquery-date-dropdowns/) -->
 
 ##Installation
-####Bower
-`bower install -S jquery-date-dropdowns`
+<!-- ####Bower
+`bower install -S jquery-date-dropdowns` -->
+####Html
+<script src="../dist/jquery-dropdown-datepicker.min.js"></script>
 
 ##Usage
 ####Instantiation
 
 ```js
- $("#date_of_birth").dateDropdowns({
+ $("#date").dropdownDatepicker({
      configOption: configValue
  });
 ```
@@ -81,33 +83,28 @@ Default: `['Day', 'Month', 'Year']`
 
 Initial dropdown values (can be overridden for internationalisation purposes)
 
-####maxAge
-
-Type: `int`  
-Default: `120`
-
-Indicates the maximum age the widget will accept
-
 ####maxYear
 
 Type: `int`  
 Default: `null`
 
-The highest year option that will be available. **Note:** this will take precedence over **minAge**
+The highest year option that will be available.
 
-####minAge
-
-Type: `int`  
-Default: `0`
-
-Indicates the minimum age the widget will accept
 
 ####minYear
 
 Type: `int`  
 Default: `null`
 
-The lowest year option that will ba available. **Note:** this will take precedence over **maxAge**
+The lowest year option that will ba available.
+
+
+####allowPast
+
+Type: `boolean`  
+Default: `true`
+
+If false then future date will not be available
 
 ####monthFormat
 
@@ -191,7 +188,7 @@ Call the destroy method to undo any changes made during the plugin's initialisat
 Example:
 
 ```js
-$("#date-dropdown").dateDropdowns('destroy');
+$("#date").dateDropdowns('destroy');
 ```
 
 ###Contributing
@@ -200,8 +197,7 @@ Feel free to submit any fixes or propose any additional functionality via pull r
 ####Minification and Validation
 Both are automated via Grunt. Run `npm_install` to install the required dependencies, then run `grunt` from the root of the project to handle the tasks.
 
-###To Come
-- Ability to specify relative dates as default values (e.g. `today`, `+1 week` or `my wedding anniversary`).
-- Ability to pass an instantiated `date()` object as a default value
-- Similarly formatted time inputs (hours : minutes, optional seconds). This is likely to be a separate file to avoid unnecessary bloat for users who only need date inputs, but a merged version should also be available.
-- And maybe more, who knows..
+
+###Thanks Giving
+This plugin is made based on [jquery-date-dropdowns](https://github.com/IckleChris/jquery-date-dropdowns)
+Thanks to [IckleChris](https://github.com/IckleChris)

@@ -195,7 +195,7 @@ $("#date").dateDropdowns('destroy');
 Feel free to submit any fixes or propose any additional functionality via pull request or issue, making sure any changes take place in `/src`. Any code changes must pass the JSHint validation, and where possible also update the minified file.
 
 ####Minification and Validation
-Both are automated via Grunt. Run `npm_install` to install the required dependencies, then run `grunt` from the root of the project to handle the tasks.
+Both are automated via Grunt. Run `npm install` to install the required dependencies, then run `grunt` from the root of the project to handle the tasks.
 
 
 ###Thanks Giving

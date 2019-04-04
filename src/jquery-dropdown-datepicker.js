@@ -136,14 +136,16 @@
                 year: this.config.initialDayMonthYearValues[2]
             };
 
+            var parts = this.processDefaultDate();
+
             // Build the day dropdown element
             $dayDropdown = this.buildBaseDropdown('day');
-            $dayOptions = this.buildDayOptions();
+            $dayOptions = this.buildDayOptions(parts[1], parts[2]);
             $dayDropdown = this.addOptionsToDropdown($dayDropdown, $dayOptions);   
             this.internals.objectRefs.dayDropdown = $dayDropdown;
 
             $monthDropdown = this.buildBaseDropdown('month');
-            $monthOptions = this.buildMonthOptions();
+            $monthOptions = this.buildMonthOptions(parts[2]);
             $monthDropdown = this.addOptionsToDropdown($monthDropdown, $monthOptions); 
             this.internals.objectRefs.monthDropdown = $monthDropdown;
 
@@ -203,6 +205,7 @@
                 // alert('ok');
                 
                 if($(this).hasClass('year')){
+                    console.log('year changed');
                     $that.clearOptions($monthSelect);
                     $monthOptions = $that.buildMonthOptions(year);
                     $monthDropdown = $that.addOptionsToDropdown($monthSelect, $monthOptions);
@@ -218,6 +221,7 @@
                 
 
                 if($(this).hasClass('month')){
+                    console.log('month changed');
                     $that.clearOptions($daySelect);
                     $dayOptions = $that.buildDayOptions(month, year);
                     $dayDropdown = $that.addOptionsToDropdown($daySelect, $dayOptions);
@@ -280,6 +284,8 @@
             var day,start1=1,start2=9,end1=10,end2=31,
                 options = [],
                 option = document.createElement('option');
+            month = parseInt(month);    
+            year = parseInt(year);
 
             if(!this.config.allowPast && year === this.internals.currentYear && month === this.internals.currentMonth && start1 < this.internals.currentDay) {
                 start1 = this.internals.currentDay;
@@ -334,7 +340,8 @@
             var start = 1,end = 12,
                 options = [],
                 option = document.createElement('option');
-            
+            year = parseInt(year);    
+            console.log(year, this.internals.currentYear);
             if(!this.config.allowPast && year === this.internals.currentYear) {
                 start = this.internals.currentMonth;
             }
@@ -393,6 +400,8 @@
 
             if (!minYear) {
                 minYear = this.config.allowPast ? 1970 : this.internals.currentYear;
+            }else{
+                minYear = this.config.allowPast ? minYear : this.internals.currentYear;
             }
 
             if (!maxYear) {
@@ -424,8 +433,7 @@
             });
         },
 
-
-        populateDefaultDate: function () {
+        processDefaultDate: function(){
             var date = this.config.defaultDate,
                 parts = [],
                 day = '',
@@ -471,15 +479,21 @@
                     break;
             }
 
+            return [day, month, year];
+        },
+
+
+        populateDefaultDate: function () {
+            var date = this.config.defaultDate;
+            var parts = this.processDefaultDate();           
+
             // Set the values on the dropdowns
-            this.internals.objectRefs.dayDropdown.val(day);
-            this.internals.objectRefs.monthDropdown.val(month);
-            this.internals.objectRefs.yearDropdown.val(year);
+            this.internals.objectRefs.dayDropdown.val(parts[0]);
+            this.internals.objectRefs.monthDropdown.val(parts[1]);
+            this.internals.objectRefs.yearDropdown.val(parts[2]);
             this.internals.objectRefs.hiddenField.val(date);
 
-            if (true === this.checkDate(day, month, year)) {
-                this.internals.objectRefs.dayDropdown.addClass('invalid');
-            }
+            
 
             return true;
         },

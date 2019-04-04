@@ -1,6 +1,6 @@
 {
     "name": "jquery-dropdown-datepicker",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "homepage": "https://github.com/tanvir0604/jquery-dropdown-datepicker",
     "authors": [
         "Md Shafkat Hussain Tanvir <tanvir0604@gmail.com>"
@@ -16,7 +16,8 @@
     "license": "ISC",
     "ignore": [
       "/src",
-      "/demo"
+      "/demo",
+      "/node_modules"
     ],
     "dependencies": {
       "jquery": ">=1.4"

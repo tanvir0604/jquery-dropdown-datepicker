@@ -3,7 +3,7 @@
  *  A simple, customisable date select plugin
  *
  *  Made by Md Shafkat Hussain Tanvir
- *  Under IST License
+ *  Under ISC License
  */
 
 ;(function ($, window, document, undefined) {
@@ -20,6 +20,7 @@
             minYear: null,
             maxYear: null,
             allowPast: true,
+            allowFuture: false,
             submitFieldName: 'date',
             wrapperClass: 'date-dropdowns',
             dropdownClass: null,
@@ -66,6 +67,7 @@
             this.bindChangeEvent();
 
             if (this.config.defaultDate) {
+                // if past date is disallowed and default is a past date then no default date is selected
                 if(!this.config.allowPast && new Date().getTime() > new Date(this.config.defaultDate).getTime()) {
                     return;
                 }
@@ -399,13 +401,13 @@
             }
 
             if (!minYear) {
-                minYear = this.config.allowPast ? 1970 : this.internals.currentYear;
+                minYear = this.config.allowPast ? this.internals.currentYear-10 : this.internals.currentYear;
             }else{
                 minYear = this.config.allowPast ? minYear : this.internals.currentYear;
             }
 
             if (!maxYear) {
-                maxYear = this.internals.currentYear;
+                maxYear = this.internals.currentYear+10;
             }
 
             for (var i = maxYear; i >= minYear; i--) {

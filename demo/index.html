@@ -8,7 +8,12 @@
 </head>
 <body>
     
-    <input type="text" id="date">
+    <fieldset>
+        <legend>Date of Birth Selector</legend>
+        <input type="text" id="dob">
+        
+    </fieldset>
+    
 
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -18,14 +23,14 @@
     <script src="../src/jquery-dropdown-datepicker.js"></script>
 
     <script>
-        $('#date').dropdownDatepicker({
-            defaultDate: '2019-04-07',
+        $('#dob').dropdownDatepicker({
+            // defaultDate: '2019-04-07',
             displayFormat: 'dmy',
-            monthFormat: 'short',
-            dayLabel: 'rony',
+            monthFormat: 'long',
+            dayLabel: 'day',
             // minYear: 2000,
-            maxYear: 2020,
-            allowPast: false
+            // maxYear: 2020,
+            // allowPast: false
         });
     </script>
 </body>

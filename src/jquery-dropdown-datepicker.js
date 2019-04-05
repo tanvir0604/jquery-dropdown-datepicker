@@ -17,10 +17,12 @@
             defaultDateFormat: 'yyyy-mm-dd',
             displayFormat: 'dmy',
             submitFormat: 'yyyy-mm-dd',
+            minAge: null,
+            maxAge: null,
             minYear: null,
             maxYear: null,
             allowPast: true,
-            allowFuture: false,
+            allowFuture: true,
             submitFieldName: 'date',
             wrapperClass: 'date-dropdowns',
             dropdownClass: null,
@@ -34,7 +36,10 @@
             monthLongValues: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             monthShortValues: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             initialDayMonthYearValues: ['Day', 'Month', 'Year'],
-            daySuffixValues: ['st', 'nd', 'rd', 'th']
+            daySuffixValues: ['st', 'nd', 'rd', 'th'],
+            onDayChange: null,
+            onMonthChange: null,
+            onYearChange: null
         };
 
     // The actual plugin constructor
@@ -67,10 +72,20 @@
             this.bindChangeEvent();
 
             if (this.config.defaultDate) {
+                if (isNaN(Date.parse(this.config.defaultDate)) === true) {
+                    return;
+                }
+
                 // if past date is disallowed and default is a past date then no default date is selected
                 if(!this.config.allowPast && new Date().getTime() > new Date(this.config.defaultDate).getTime()) {
                     return;
                 }
+
+                // if future date is disallowed and default is a future date then no default date is selected
+                if(!this.config.allowFuture && new Date().getTime() < new Date(this.config.defaultDate).getTime()){
+                    return;
+                }
+
                 this.populateDefaultDate();
             }
         },
@@ -205,9 +220,14 @@
 
                 // Find out whether the change has made the date invalid (e.g. 31st Feb)
                 // alert('ok');
+
+                if($(this).hasClass('day')){
+                    if(typeof $that.config.onDayChange === 'function'){
+                        $that.config.onDayChange(day, month, year);
+                    }
+                }
                 
                 if($(this).hasClass('year')){
-                    console.log('year changed');
                     $that.clearOptions($monthSelect);
                     $monthOptions = $that.buildMonthOptions(year);
                     $monthDropdown = $that.addOptionsToDropdown($monthSelect, $monthOptions);
@@ -218,38 +238,29 @@
                     $dayOptions = $that.buildDayOptions(month, year);
                     $dayDropdown = $that.addOptionsToDropdown($daySelect, $dayOptions);
                     $that.internals.objectRefs.dayDropdown = $dayDropdown;
+
+                    if(typeof $that.config.onYearChange === 'function'){
+                        $that.config.onYearChange(day, month, year);
+                    }
                 }
 
                 
 
                 if($(this).hasClass('month')){
-                    console.log('month changed');
                     $that.clearOptions($daySelect);
                     $dayOptions = $that.buildDayOptions(month, year);
                     $dayDropdown = $that.addOptionsToDropdown($daySelect, $dayOptions);
                     $that.internals.objectRefs.dayDropdown = $dayDropdown;
+                    if(typeof $that.config.onMonthChange === 'function'){
+                        $that.config.onMonthChange(day, month, year);
+                    }
                 }
 
-                // $that.clearOptions($daySelect);
-                // var $dayDropdown = $that.buildDayDropdown(month, year);
-                // $that.internals.objectRefs.dayDropdown = $dayDropdown;
-                // $that.attachDropdowns();
 
-                
-
-
-                // invalidDay = pluginHandle.checkDate(day, month, year);
-                
-
-                // If invalid - add an error class to the day dropdown and return
-                // if (invalidDay) {
-                //     objectRefs.dayDropdown.addClass('invalid');
-                //     return false;
-                // }
-
-                // if ('00' !== objectRefs.dayDropdown.val()) {
-                //     objectRefs.dayDropdown.removeClass('invalid');
-                // }
+                if(typeof $that.config.onChange === 'function'){
+                    $that.config.onChange(day, month, year);
+                }
+               
 
                 // Empty the hidden field after each change
                 objectRefs.hiddenField.val('');
@@ -283,7 +294,7 @@
 
 
         buildDayOptions: function (month, year) {
-            var day,start1=1,start2=9,end1=10,end2=31,
+            var day,start1=1,start2=10,end1=9,end2=31,
                 options = [],
                 option = document.createElement('option');
             month = parseInt(month);    
@@ -292,12 +303,37 @@
             if(!this.config.allowPast && year === this.internals.currentYear && month === this.internals.currentMonth && start1 < this.internals.currentDay) {
                 start1 = this.internals.currentDay;
             }
+
+            if(this.config.maxAge != null){
+                if(year === this.internals.currentYear - this.config.maxAge && month === this.internals.currentMonth){
+                    start1 = this.internals.currentDay;
+                }
+            }
+
             if(end1 < start1) {
                 end1 = start1;
+                start2 = start1;
             }
             var numDaysInMonth = (new Date(year, month, 0).getDate());
             if(end2 > numDaysInMonth) {
                 end2 =numDaysInMonth;
+            }
+
+            if(!this.config.allowFuture && year === this.internals.currentYear && month === this.internals.currentMonth && end2 > this.internals.currentDay) {
+                end2 = this.internals.currentDay;
+            }
+            
+
+
+            if(this.config.minAge != null){
+                if(year === this.internals.currentYear - this.config.minAge && month === this.internals.currentMonth){
+                    end2 = this.internals.currentDay;
+                }
+            }
+
+            if(end1 > end2){
+                end1 = end2;
+                start2 = end2+1;
             }
 
 
@@ -308,7 +344,7 @@
             }
 
             // Days 1-9
-            for (var i = start1; i <= start2; i++) {
+            for (var i = start1; i <= end1; i++) {
                 if (this.config.daySuffixes) {
                     day = i + this.getSuffix(i);
                 } else {
@@ -321,7 +357,7 @@
             }
 
             // Days 10-31
-            for (var j = end1; j <= end2; j++) {
+            for (var j = start2; j <= end2; j++) {
                 day = j;
 
                 if (this.config.daySuffixes) {
@@ -343,9 +379,23 @@
                 options = [],
                 option = document.createElement('option');
             year = parseInt(year);    
-            console.log(year, this.internals.currentYear);
             if(!this.config.allowPast && year === this.internals.currentYear) {
                 start = this.internals.currentMonth;
+            }
+            if(!this.config.allowFuture && year === this.internals.currentYear) {
+                end = this.internals.currentMonth;
+            }
+
+            if(this.config.minAge != null){
+                if(year === this.internals.currentYear - this.config.minAge){
+                    end = this.internals.currentMonth;
+                }
+            }
+
+            if(this.config.maxAge != null){
+                if(year === this.internals.currentYear - this.config.maxAge){
+                    start = this.internals.currentMonth;
+                }
             }
 
             if(this.config.monthLabel){
@@ -400,6 +450,13 @@
                 options.push(option);
             }
 
+            if(this.config.minAge != null){
+                maxYear = this.internals.currentYear - this.config.minAge;
+            }
+            if(this.config.maxAge != null){
+                minYear = this.internals.currentYear - this.config.maxAge;
+            }
+
             if (!minYear) {
                 minYear = this.config.allowPast ? this.internals.currentYear-10 : this.internals.currentYear;
             }else{
@@ -408,6 +465,10 @@
 
             if (!maxYear) {
                 maxYear = this.internals.currentYear+10;
+            }
+
+            if(!this.config.allowFuture){
+                maxYear = this.internals.currentYear;
             }
 
             for (var i = maxYear; i >= minYear; i--) {

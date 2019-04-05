@@ -5,13 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Jquery Dropdown Datepicker</title>
+    <style>
+        xmp{
+            padding: 20px;
+            background-color: black;
+            color: wheat;
+        }
+    </style>
 </head>
 <body>
     
     <fieldset>
         <legend>Date of Birth Selector</legend>
         <input type="text" id="dob">
-        
+<xmp>
+        $('#dob').dropdownDatepicker({
+            dayLabel: 'day',
+            minAge: 18,
+            maxAge: 100
+        });
+</xmp>
     </fieldset>
     
 
@@ -24,13 +37,21 @@
 
     <script>
         $('#dob').dropdownDatepicker({
-            // defaultDate: '2019-04-07',
-            displayFormat: 'dmy',
-            monthFormat: 'long',
             dayLabel: 'day',
-            // minYear: 2000,
-            // maxYear: 2020,
-            // allowPast: false
+            minAge: 18,
+            maxAge: 100,
+            onChange: function(day, month, year){
+                console.log('on change', day, month, year);
+            },
+            onDayChange: function(day, month, year){
+                console.log('on day change', day, month, year);
+            },
+            onMonthChange: function(day, month, year){
+                console.log('on month change', day, month, year);
+            },
+            onYearChange: function(day, month, year){
+                console.log('on year change', day, month, year);
+            }
         });
     </script>
 </body>

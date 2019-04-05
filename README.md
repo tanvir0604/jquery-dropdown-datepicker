@@ -5,25 +5,25 @@ A simple and customization dropdown datepicker plugin made with jQuery.
 ## Installation
 
 ### Package manager 
-#### [npm](https://www.npmjs.com)
+#### Using [npm](https://www.npmjs.com)
 
 ```bash
 npm i jquery-dropdown-datepicker
 ```
 
-#### [yarn](https://yarnpkg.com)
+#### Using [yarn](https://yarnpkg.com)
 
 ```bash
 yarn add jquery-dropdown-datepicker
 ```
 
-#### [bower](https://bower.io)
+#### Using [bower](https://bower.io)
 
 ```bash
 bower install jquery-dropdown-datepicker
 ```
 
-#### CDN
+#### Using CDN
 
 ```code
 <script src="https://unpkg.com/jquery-dropdown-datepicker@1.0.0/dist/jquery-dropdown-datepicker.min.js"></script>
@@ -47,9 +47,12 @@ $("#date").dropdownDatepicker({
 | defaultDateFormat        | string        | 'yyyy-mm-dd'    |        |
 | displayFormat            | string        | 'dmy'           |        |
 | submitFormat             | string        | 'yyyy-mm-dd'    |        |
+| minAge                   | int           | null            |        |
+| maxAge                   | int           | null            |        |
 | minYear                  | int           | null            |        |
 | maxYear                  | int           | null            |        |
 | allowPast                | boolean       | true            |        |
+| allowFuture              | boolean       | true            |        |
 | submitFieldName          | string        | 'date'          |        |
 | wrapperClass             | string        | 'date-dropdowns'|        |
 | dropdownClass            | string        | null            |        |
@@ -65,6 +68,46 @@ $("#date").dropdownDatepicker({
 | initialDayMonthYearValues| array         | ['Day', 'Month', 'Year'] |      |
 | daySuffixValues          | array         | ['st', 'nd', 'rd', 'th'] |      |
 
+
+## Events
+### onChange
+Call on any change of day,month or year dropdown
+```javascript
+$("#date").dropdownDatepicker({
+    onChange: function(day, month, year){
+        console.log(day, month, year);
+    }
+});
+```
+### onDayChange
+Call on any change of day dropdown
+```javascript
+$("#date").dropdownDatepicker({
+    onDayChange: function(day, month, year){
+        console.log(day, month, year);
+    }
+});
+```
+
+### onMonthChange
+Call on any change of month dropdown
+```javascript
+$("#date").dropdownDatepicker({
+    onMonthChange: function(day, month, year){
+        console.log(day, month, year);
+    }
+});
+```
+
+### onYearChange
+Call on any change of year dropdown
+```javascript
+$("#date").dropdownDatepicker({
+    onYearChange: function(day, month, year){
+        console.log(day, month, year);
+    }
+});
+```
 
 ## Methods
 ### destroy

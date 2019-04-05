@@ -14,7 +14,7 @@ npm i jquery-dropdown-datepicker
 #### [yarn](https://yarnpkg.com)
 
 ```bash
-yarn i jquery-dropdown-datepicker
+yarn add jquery-dropdown-datepicker
 ```
 
 #### [bower](https://bower.io)

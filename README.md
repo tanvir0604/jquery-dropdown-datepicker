@@ -28,7 +28,9 @@ bower install jquery-dropdown-datepicker
 ```code
 <script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.1.0/dist/jquery-dropdown-datepicker.min.js"></script>
 
-<script src="https://unpkg.com/jquery-dropdown-datepicker@1.0.0/dist/jquery-dropdown-datepicker.min.js"></script>
+OR
+
+<script src="https://unpkg.com/jquery-dropdown-datepicker@1.1.0/dist/jquery-dropdown-datepicker.min.js"></script>
 ```
 ## Usage
 

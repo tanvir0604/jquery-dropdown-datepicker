@@ -5,62 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Jquery Dropdown Datepicker</title>
-    <style>
-        xmp{
-            padding: 20px;
-            background-color: black;
-            color: wheat;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+
+
+        <div class="header-bar">
+            <h1><strong>jQuery Dropdown Datepicker</strong></h1>
+
+            <nav>
+                <ul>
+                    <li>
+                        <a href="https://github.com/tanvir0604/jquery-dropdown-datepicker/blob/master/README.md">Documentation</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">Examples</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/tanvir0604/jquery-dropdown-datepicker">Github</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="wrapper">
+                <div class="example">
+                    <h2>Plugin Defaults</h2>
+                    <input type="text" id="example1" readonly='readonly'>
+                    <xmp>$("#example1").dropdownDatepicker();</xmp>
+                    
+                </div>  
+        </div>
+
+        <div class="wrapper">
+                <div class="example">
+                    <h2>Submit Format</h2>
+                    <input type="text" id="example2" readonly='readonly'>
+                    <xmp>
+$("#example2").dropdownDatepicker({
+    submitFormat: "dd/mm/yyyy"
+});
+                    </xmp>
+                    
+                </div>  
+        </div>
     
-    <fieldset>
-        <legend>Date of Birth Selector</legend>
-        <input type="text" id="dob">
-<xmp>
-        $('#dob').dropdownDatepicker({
-            dayLabel: 'day',
-            minAge: 18,
-            maxAge: 100
-        });
-</xmp>
-    </fieldset>
-
-
-    <fieldset>
-        <legend>Date Range</legend>
-        <input type="text" id="from">
-        <input type="text" id="to">
-<xmp>
-        var minDate = null, maxDate = null;
-        $('#from').dropdownDatepicker({
-            allowPast: false,
-            onChange: function(day, month, year){
-                if(day && month && year){
-                    $('#to').dropdownDatepicker('destroy');                    
-                    minDate = year+'-'+month+'-'+day;
-                    maxDate = new Date(minDate);
-                    maxDate.setDate(maxDate.getDate()+70);
-                    maxDate = maxDate.getFullYear()+'-'+(maxDate.getMonth()+1)+'-'+maxDate.getDate();
-                    createToDate();
-                }
-            }
-        });
-        var createToDate = function(){
-            $('#to').dropdownDatepicker({
-                allowPast: false,
-                minDate: minDate,
-                maxDate: maxDate,
-                onChange: function(day, month, year){
-                    console.log('active');
-                }
-            });
-        }
-
-        createToDate();
-</xmp>
-    </fieldset>
     
 
     <script
@@ -68,50 +58,16 @@
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.2.1/dist/jquery-dropdown-datepicker.min.js"></script>
-    <!-- <script src="../src/jquery-dropdown-datepicker.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.2.1/dist/jquery-dropdown-datepicker.min.js"></script> -->
+    <script src="../src/jquery-dropdown-datepicker.js"></script>
     <script>
+        $(function(){
+            $("#example1").dropdownDatepicker();
 
-
-        $('#dob').dropdownDatepicker({
-            minAge: 18,
-            maxAge: 100,
-            onChange: function(day, month, year){
-                console.log(day, month, year);
-            }
-        });
-
-
-        var minDate = null, maxDate = null;
-        $('#from').dropdownDatepicker({
-            allowPast: false,
-            onChange: function(day, month, year){
-                if(day && month && year){
-                    $('#to').dropdownDatepicker('destroy');                    
-                    minDate = year+'-'+month+'-'+day;
-                    console.log(minDate);
-                    maxDate = new Date(minDate);
-                    maxDate.setDate(maxDate.getDate()+70);
-                    maxDate = maxDate.getFullYear()+'-'+(maxDate.getMonth()+1)+'-'+maxDate.getDate();
-                    console.log(maxDate);
-                    createToDate();
-                }
-            }
-        });
-        var createToDate = function(){
-            $('#to').dropdownDatepicker({
-                allowPast: false,
-                minDate: minDate,
-                maxDate: maxDate,
-                onChange: function(day, month, year){
-                    console.log('active');
-                }
+            $("#example2").dropdownDatepicker({
+                submitFormat: "dd/mm/yyyy"
             });
-        }
-
-        createToDate();
-    
-        
+        })
     </script>
 </body>
 </html>

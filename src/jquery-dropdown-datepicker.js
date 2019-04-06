@@ -110,8 +110,9 @@
                 }
 
                 // Configure the input element and wrap
-                hiddenField = this.$element.attr('type', 'hidden')
-                    .wrap('<div class="' + this.config.wrapperClass + '"></div>');
+                hiddenField = this.$element.wrap('<div class="' + this.config.wrapperClass + '"></div>');
+                // hiddenField = this.$element.attr('type', 'hidden')
+                    // .wrap('<div class="' + this.config.wrapperClass + '"></div>');
 
                 var customFieldNameProvided = (this.config.submitFieldName !== pluginDefaults.submitFieldName),
                     fieldHasName = this.element.hasAttribute('name');

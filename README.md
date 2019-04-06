@@ -55,6 +55,8 @@ $("#date").dropdownDatepicker({
 | maxAge                   | int           | null            |        |
 | minYear                  | int           | null            |        |
 | maxYear                  | int           | null            |        |
+| minDate                  | string        | null            |        |
+| maxDate                  | string        | null            |        |
 | allowPast                | boolean       | true            |        |
 | allowFuture              | boolean       | true            |        |
 | submitFieldName          | string        | 'date'          |        |

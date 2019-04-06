@@ -26,6 +26,41 @@
         });
 </xmp>
     </fieldset>
+
+
+    <fieldset>
+        <legend>Date Range</legend>
+        <input type="text" id="from">
+        <input type="text" id="to">
+<xmp>
+        var minDate = null, maxDate = null;
+        $('#from').dropdownDatepicker({
+            allowPast: false,
+            onChange: function(day, month, year){
+                if(day && month && year){
+                    $('#to').dropdownDatepicker('destroy');                    
+                    minDate = year+'-'+month+'-'+day;
+                    maxDate = new Date(minDate);
+                    maxDate.setDate(maxDate.getDate()+70);
+                    maxDate = maxDate.getFullYear()+'-'+(maxDate.getMonth()+1)+'-'+maxDate.getDate();
+                    createToDate();
+                }
+            }
+        });
+        var createToDate = function(){
+            $('#to').dropdownDatepicker({
+                allowPast: false,
+                minDate: minDate,
+                maxDate: maxDate,
+                onChange: function(day, month, year){
+                    console.log('active');
+                }
+            });
+        }
+
+        createToDate();
+</xmp>
+    </fieldset>
     
 
     <script
@@ -33,26 +68,50 @@
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.1.0/dist/jquery-dropdown-datepicker.min.js"></script>
-
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.1.0/dist/jquery-dropdown-datepicker.min.js"></script> -->
+    <script src="../src/jquery-dropdown-datepicker.js"></script>
     <script>
+
+
         $('#dob').dropdownDatepicker({
-            dayLabel: 'day',
             minAge: 18,
             maxAge: 100,
             onChange: function(day, month, year){
-                console.log('on change', day, month, year);
-            },
-            onDayChange: function(day, month, year){
-                console.log('on day change', day, month, year);
-            },
-            onMonthChange: function(day, month, year){
-                console.log('on month change', day, month, year);
-            },
-            onYearChange: function(day, month, year){
-                console.log('on year change', day, month, year);
+                console.log(day, month, year);
             }
         });
+
+
+        var minDate = null, maxDate = null;
+        $('#from').dropdownDatepicker({
+            allowPast: false,
+            onChange: function(day, month, year){
+                if(day && month && year){
+                    $('#to').dropdownDatepicker('destroy');                    
+                    minDate = year+'-'+month+'-'+day;
+                    console.log(minDate);
+                    maxDate = new Date(minDate);
+                    maxDate.setDate(maxDate.getDate()+70);
+                    maxDate = maxDate.getFullYear()+'-'+(maxDate.getMonth()+1)+'-'+maxDate.getDate();
+                    console.log(maxDate);
+                    createToDate();
+                }
+            }
+        });
+        var createToDate = function(){
+            $('#to').dropdownDatepicker({
+                allowPast: false,
+                minDate: minDate,
+                maxDate: maxDate,
+                onChange: function(day, month, year){
+                    console.log('active');
+                }
+            });
+        }
+
+        createToDate();
+    
+        
     </script>
 </body>
 </html>

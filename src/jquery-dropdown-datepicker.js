@@ -21,6 +21,8 @@
             maxAge: null,
             minYear: null,
             maxYear: null,
+            minDate: null,
+            maxDate: null,
             allowPast: true,
             allowFuture: true,
             submitFieldName: 'date',
@@ -310,13 +312,22 @@
                 }
             }
 
+            if(this.config.minDate !== null && new Date(this.config.minDate).getFullYear() === year && new Date(this.config.minDate).getMonth() + 1 === month){
+                start1 = start1 < new Date(this.config.minDate).getDate()?new Date(this.config.minDate).getDate():start1;
+            }
+            
+
             if(end1 < start1) {
                 end1 = start1;
+            }
+            if(start2 < start1){
                 start2 = start1;
             }
+
+
             var numDaysInMonth = (new Date(year, month, 0).getDate());
             if(end2 > numDaysInMonth) {
-                end2 =numDaysInMonth;
+                end2 = numDaysInMonth;
             }
 
             if(!this.config.allowFuture && year === this.internals.currentYear && month === this.internals.currentMonth && end2 > this.internals.currentDay) {
@@ -331,9 +342,16 @@
                 }
             }
 
-            if(end1 > end2){
-                end1 = end2;
-                start2 = end2+1;
+            if(this.config.maxDate !== null && new Date(this.config.maxDate).getFullYear() === year && new Date(this.config.maxDate).getMonth() + 1 === month){
+                end2 = end2 > new Date(this.config.maxDate).getDate()?new Date(this.config.maxDate).getDate():end2;
+            }
+            
+
+            if(end1 > start2){
+                start2 = end1;
+            }
+            if(start2 > end2){
+                end2 = start2;
             }
 
 
@@ -396,6 +414,15 @@
                 if(year === this.internals.currentYear - this.config.maxAge){
                     start = this.internals.currentMonth;
                 }
+            }
+
+            if(this.config.minDate !== null && new Date(this.config.minDate).getFullYear() === year){
+                start = start < new Date(this.config.minDate).getMonth()+1?new Date(this.config.minDate).getMonth()+1:start;
+                console.log('start', start);
+            }
+            if(this.config.maxDate !== null && new Date(this.config.maxDate).getFullYear() === year){
+                end = end > new Date(this.config.maxDate).getMonth()+1?new Date(this.config.maxDate).getMonth()+1:end;
+                console.log('end', end);
             }
 
             if(this.config.monthLabel){
@@ -462,6 +489,9 @@
             }else{
                 minYear = this.config.allowPast ? minYear : this.internals.currentYear;
             }
+            if(this.config.minDate !== null){
+                minYear = new Date(this.config.minDate).getFullYear();
+            }
 
             if (!maxYear) {
                 maxYear = this.internals.currentYear+10;
@@ -469,6 +499,10 @@
 
             if(!this.config.allowFuture){
                 maxYear = this.internals.currentYear;
+            }
+
+            if(this.config.maxDate !== null){
+                maxYear = new Date(this.config.maxDate).getFullYear();
             }
 
             for (var i = maxYear; i >= minYear; i--) {
@@ -615,11 +649,13 @@
             var wrapperClass = this.config.wrapperClass;
 
             if (this.$element.hasClass(wrapperClass)) {
-                this.$element.empty();
+                // this.$element.empty();
+                this.$element.removeData('plugin_' +pluginName);
             } else {
                 var $parent = this.$element.parent(),
                     $select = $parent.find('select');
-
+                
+                this.$element.removeData('plugin_' +pluginName);
                 this.$element.unwrap();
                 $select.remove();
             }

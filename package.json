@@ -1,8 +1,8 @@
 {
   "name": "jquery-dropdown-datepicker",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A simple customizable jquery dropdown datepicker",
-  "main": "index.js",
+  "main": "dist/jquery-dropdown-datepicker.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

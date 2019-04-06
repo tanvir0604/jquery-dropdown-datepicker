@@ -2,6 +2,8 @@
 
 A simple and customization dropdown datepicker plugin made with jQuery.
 
+## Check [Examples](https://tanvir0604.github.io/jquery-dropdown-datepicker/)
+
 ## Installation
 
 ### Package manager 
@@ -26,11 +28,11 @@ bower install jquery-dropdown-datepicker
 #### Using CDN
 
 ```code
-<script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.2.1/dist/jquery-dropdown-datepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.2.2/dist/jquery-dropdown-datepicker.min.js"></script>
 ```
 OR
 ```code
-<script src="https://unpkg.com/jquery-dropdown-datepicker@1.2.1/dist/jquery-dropdown-datepicker.min.js"></script>
+<script src="https://unpkg.com/jquery-dropdown-datepicker@1.2.2/dist/jquery-dropdown-datepicker.min.js"></script>
 ```
 ## Usage
 

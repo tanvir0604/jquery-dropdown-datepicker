@@ -1,6 +1,6 @@
 {
   "name": "jquery-dropdown-datepicker",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A simple customizable jquery dropdown datepicker",
   "main": "dist/jquery-dropdown-datepicker.min.js",
   "scripts": {

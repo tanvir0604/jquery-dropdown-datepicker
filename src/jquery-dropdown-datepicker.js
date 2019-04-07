@@ -417,11 +417,9 @@
 
             if(this.config.minDate !== null && new Date(this.config.minDate).getFullYear() === year){
                 start = start < new Date(this.config.minDate).getMonth()+1?new Date(this.config.minDate).getMonth()+1:start;
-                console.log('start', start);
             }
             if(this.config.maxDate !== null && new Date(this.config.maxDate).getFullYear() === year){
                 end = end > new Date(this.config.maxDate).getMonth()+1?new Date(this.config.maxDate).getMonth()+1:end;
-                console.log('end', end);
             }
 
             if(this.config.monthLabel){
@@ -484,7 +482,7 @@
             }
 
             if (!minYear) {
-                minYear = this.config.allowPast ? this.internals.currentYear-10 : this.internals.currentYear;
+                minYear = this.config.allowPast ? 1970 : this.internals.currentYear;
             }else{
                 minYear = this.config.allowPast ? minYear : this.internals.currentYear;
             }
@@ -493,7 +491,7 @@
             }
 
             if (!maxYear) {
-                maxYear = this.internals.currentYear+10;
+                maxYear = this.internals.currentYear+20;
             }
 
             if(!this.config.allowFuture){
@@ -515,7 +513,6 @@
         },
 
         addOptionsToDropdown: function(dropdown, options){
-            // console.log(options);
             for (var index = 0; index < options.length; index++) {
                 dropdown.append(options[index]);
                 

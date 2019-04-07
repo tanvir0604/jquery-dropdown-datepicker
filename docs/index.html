@@ -33,22 +33,149 @@
                 <div class="example">
                     <h2>Plugin Defaults</h2>
                     <input type="text" id="example1" readonly='readonly'>
-                    <xmp>$("#example1").dropdownDatepicker();</xmp>
+<xmp>$("#example1").dropdownDatepicker();</xmp>
                     
-                </div>  
-        </div>
+                </div>
 
-        <div class="wrapper">
+
+                <!-- date range -->
+                <div class="example">
+                        <h2>Date Range</h2>
+                        <input type="text" id="from" readonly='readonly'>
+                        <br>
+                        TO:
+                        <br>
+                        <br>
+                        <input type="text" id="to" readonly='readonly'>
+<xmp>var maxDate = null, minDate = null,days=100;
+$("#from").dropdownDatepicker({
+    allowPast: false,
+    maxDate: maxDate,
+    onChange: function(day, month, year){
+        if(day!=null && month!=null && year!=null){
+            $("#to").dropdownDatepicker('destroy');
+            minDate = year+'-'+month+'-'+day;
+            minDate = new Date(minDate);
+            minDate.setDate(minDate.getDate());
+            minDate = minDate.getFullYear()+'-'+(minDate.getMonth()+1)+'-'+minDate.getDate();
+            maxDate = new Date(minDate);
+            maxDate.setDate(maxDate.getDate()+days);
+            maxDate = maxDate.getFullYear()+'-'+(maxDate.getMonth()+1)+'-'+maxDate.getDate();
+            createToDate();
+        }
+    }
+});
+var createToDate = function(){
+    $("#to").dropdownDatepicker({
+        allowPast: false,
+        minDate: minDate,
+        maxDate: maxDate
+    });
+}
+createToDate();</xmp>
+                        
+                </div>
+                <!-- date range -->
+
+
+
+        
                 <div class="example">
                     <h2>Submit Format</h2>
                     <input type="text" id="example2" readonly='readonly'>
-                    <xmp>
-$("#example2").dropdownDatepicker({
+<xmp>$("#example2").dropdownDatepicker({
     submitFormat: "dd/mm/yyyy"
-});
-                    </xmp>
+});</xmp>
                     
                 </div>  
+        
+
+                <div class="example">
+                    <h2>Default Date</h2>
+                    <input type="text" id="example3" readonly='readonly'>
+<xmp>$("example3").dateDropdowns({
+    defaultValue: "2010-02-17"
+});</xmp>
+                </div>
+
+
+
+                <div class="example">
+                    <h2>Min. Age 18 (Year)</h2>
+                    <input type="text" id="example4" readonly='readonly'>
+<xmp>$("example4").dropdownDatepicker({
+    minAge: 18
+});</xmp>
+                </div>
+
+			    <div class="example">
+				    <h2>Alternative Display Format</h2>
+				    <input type="text" id="example5" readonly='readonly'>
+<xmp>$("example5").dropdownDatepicker({
+    displayFormat: "mdy"
+});</xmp>
+			    </div>
+
+			    <div class="example">
+				    <h2>Short Month Names</h2>
+				    <input type="text" id="example6" readonly='readonly'>
+<xmp>$("example6").dropdownDatepicker({
+    monthFormat: "short"
+});</xmp>
+			    </div>
+
+			    <div class="example">
+				    <h2>Unix</h2>
+				    <input type="text" id="example7" readonly='readonly'>
+<xmp>$("example7").dropdownDatepicker({
+	submitFormat: 'unix',
+	defaultDateFormat: 'unix'
+});</xmp>
+			    </div>
+
+			    <div class="example">
+				    <h2>Unix Default Date</h2>
+				    <input type="text" id="example8" readonly='readonly'>
+<xmp>$("example8").dropdownDatepicker({
+	submitFormat: 'unix',
+	defaultDateFormat: 'unix',
+	defaultDate: 456692066
+});</xmp>
+			    </div>
+
+			    <div class="example">
+				    <h2>Unix Input Default Date</h2>
+				    <input type="text" id="example9" value="456692066" readonly='readonly'>
+<xmp><input type="text" id="example9" value="456692066"></xmp>
+<xmp>$("example9").dropdownDatepicker({
+	submitFormat: 'unix',
+	defaultDateFormat: 'unix'
+});</xmp>
+			    </div>
+
+                <div class="example">
+                    <h2>Required</h2>
+                    <form>
+                        <input type="text" id="example10" readonly='readonly'>
+                        <input type="submit" value="Test Submit">
+                    </form>
+<xmp>$("example10").dropdownDatepicker({
+    required: true
+});</xmp>
+                </div>
+		
+		        <div class="example">
+				    <h2>Alternative Select Labels</h2>
+				    <input type="text" id="example11" readonly='readonly'>
+<xmp>$("example11").dropdownDatepicker({
+    yearLabel: 'Anno',
+    monthLabel: 'Mense',
+    dayLabel: 'Die',
+});</xmp>
+			    </div>
+            </div>
+
+
         </div>
     
     
@@ -58,14 +185,80 @@ $("#example2").dropdownDatepicker({
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.2.2/dist/jquery-dropdown-datepicker.min.js"></script>
-    <!-- <script src="../src/jquery-dropdown-datepicker.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.2.3/dist/jquery-dropdown-datepicker.min.js"></script> -->
+    <script src="../src/jquery-dropdown-datepicker.js"></script>
     <script>
         $(function(){
             $("#example1").dropdownDatepicker();
 
+
+            var maxDate = null, minDate = null,days=100;
+			$("#from").dropdownDatepicker({
+				allowPast: false,
+				maxDate: maxDate,
+				onChange: function(day, month, year){
+					if(day!=null && month!=null && year!=null){
+						$("#to").dropdownDatepicker('destroy');
+						minDate = year+'-'+month+'-'+day;
+						minDate = new Date(minDate);
+						minDate.setDate(minDate.getDate());
+						minDate = minDate.getFullYear()+'-'+(minDate.getMonth()+1)+'-'+minDate.getDate();
+						maxDate = new Date(minDate);
+						maxDate.setDate(maxDate.getDate()+days);
+						maxDate = maxDate.getFullYear()+'-'+(maxDate.getMonth()+1)+'-'+maxDate.getDate();
+						createToDate();
+					}
+				}
+			});
+			var createToDate = function(){
+				$("#to").dropdownDatepicker({
+					allowPast: false,
+					minDate: minDate,
+					maxDate: maxDate
+				});
+			}
+			createToDate();
+
+
+
+
             $("#example2").dropdownDatepicker({
                 submitFormat: "dd/mm/yyyy"
+            });
+
+            $("#example3").dropdownDatepicker({
+                defaultDate: '2010-02-17'
+            });
+            $("#example4").dropdownDatepicker({
+                minAge: 18
+            });
+            $("#example5").dropdownDatepicker({
+                displayFormat: 'mdy'
+            });
+            $("#example6").dropdownDatepicker({
+                monthFormat: 'short'
+            });
+            $("#example7").dropdownDatepicker({
+                submitFormat: 'unix',
+                defaultDateFormat: 'unix'
+            });
+            $("#example8").dropdownDatepicker({
+                submitFormat: 'unix',
+                defaultDateFormat: 'unix',
+                defaultDate: 456692066
+            });
+            $("#example9").dropdownDatepicker({
+                submitFormat: 'unix',
+                defaultDateFormat: 'unix'
+            });
+            $("#example10").dropdownDatepicker({
+                required: true
+            });
+            
+            $("#example11").dropdownDatepicker({
+                yearLabel: 'Anno',
+                monthLabel: 'Mense',
+                dayLabel: 'Die',
             });
         })
     </script>

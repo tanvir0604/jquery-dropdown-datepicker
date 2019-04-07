@@ -15,7 +15,7 @@
         pluginDefaults = {
             defaultDate: null,
             defaultDateFormat: 'yyyy-mm-dd',
-            displayFormat: 'dmy',
+            displayFormat: 'ymd',
             submitFormat: 'yyyy-mm-dd',
             minAge: null,
             maxAge: null,
@@ -318,9 +318,7 @@
             }
             
 
-            if(end1 < start1) {
-                end1 = start1;
-            }
+            
             if(start2 < start1){
                 start2 = start1;
             }

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+
+        <div class="col">
+            <input type="text" id="from" class="calculateDay" name="from">
+        </div>
+        <div class="text-center" style="width:50px;">
+            ~
+        </div>
+        <div class="col">
+            <input type="text" id="to" class="calculateDay" name="to">
+        </div>
+    
+    
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.2.2/dist/jquery-dropdown-datepicker.min.js"></script> -->
+    <script src="../src/jquery-dropdown-datepicker.js"></script>
+
+
+
+	 <script>
+		$(document).ready(function(){
+			var maxDate = null, minDate = null;
+			$("#from").dropdownDatepicker({
+				wrapperClass: 'row',
+				dropdownClass: 'col form-control',
+				allowPast: false,
+				maxDate: maxDate,
+				// Identifies the "Day" dropdown
+				dayLabel: '日',
+
+				// Identifies the "Month" dropdown
+				monthLabel: '月',
+
+				// Identifies the "Year" dropdown
+				yearLabel: '年',
+				// Long month dropdown values (can be overridden for internationalisation purposes)
+				monthLongValues: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+
+				// Short month dropdown values (can be overridden for internationalisation purposes)
+				// monthShortValues: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				monthShortValues: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+
+				// Initial dropdown values (can be overridden for internationalisation purposes)
+				initialDayMonthYearValues: ['Day', 'Month', 'Year'],
+
+				// Ordinal indicators (can be overridden for internationalisation purposes)
+				// daySuffixValues: ['st', 'nd', 'rd', 'th']
+				daySuffixValues: ['日', '日', '日', '日'],
+				onChange: function(day, month, year){
+					if(day!=null && month!=null && year!=null){
+						$("#to").dropdownDatepicker('destroy');
+						minDate = year+'-'+month+'-'+day;
+						minDate = new Date(minDate);
+						minDate.setDate(minDate.getDate()+1);
+						minDate = minDate.getFullYear()+'-'+(minDate.getMonth()+1)+'-'+minDate.getDate();
+						maxDate = new Date(minDate);
+						maxDate.setDate(maxDate.getDate()+69);
+						maxDate = maxDate.getFullYear()+'-'+(maxDate.getMonth()+1)+'-'+maxDate.getDate();
+						console.log(minDate, maxDate);
+						createToDate();
+					}
+				}
+			});
+			var createToDate = function(){
+				$("#to").dropdownDatepicker({
+					wrapperClass: 'row',
+					dropdownClass: 'col form-control',
+					allowPast: false,
+					minDate: minDate,
+					maxDate: maxDate,
+					// Identifies the "Day" dropdown
+					dayLabel: '日',
+
+					// Identifies the "Month" dropdown
+					monthLabel: '月',
+
+					// Identifies the "Year" dropdown
+					yearLabel: '年',
+					// Long month dropdown values (can be overridden for internationalisation purposes)
+					monthLongValues: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+
+					// Short month dropdown values (can be overridden for internationalisation purposes)
+					// monthShortValues: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+					monthShortValues: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+
+					// Initial dropdown values (can be overridden for internationalisation purposes)
+					initialDayMonthYearValues: ['Day', 'Month', 'Year'],
+
+					// Ordinal indicators (can be overridden for internationalisation purposes)
+					// daySuffixValues: ['st', 'nd', 'rd', 'th']
+					daySuffixValues: ['日', '日', '日', '日']
+				});
+			}
+
+			createToDate();
+		});
+		
+	 </script>
+</body>
+</html>

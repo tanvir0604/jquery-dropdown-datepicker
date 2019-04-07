@@ -1,6 +1,6 @@
 {
     "name": "jquery-dropdown-datepicker",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "homepage": "https://github.com/tanvir0604/jquery-dropdown-datepicker",
     "authors": [
         "Md Shafkat Hussain Tanvir <tanvir0604@gmail.com>"
@@ -9,6 +9,7 @@
     "main": "src/jquery-dropdown-datepicker.js",
     "keywords": [
         "datepicker",
+        "daterangepicker",
         "plugin",
         "dropdown",
         "jquery"

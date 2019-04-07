@@ -4,11 +4,12 @@
     "description": "A simple customizable jquery dropdown datepicker",
     "keywords": [
         "datepicker",
+        "daterangepicker",
         "plugin",
         "dropdown",
         "jquery"
     ],
-    "version": "1.2.2",
+    "version": "1.2.3",
     "author": {
         "name": "Md Shafkat Hussain Tanvir",
         "email": "tanvir0604@gmail.com",

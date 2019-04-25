@@ -35,6 +35,7 @@
             dayLabel: 'Day',
             monthLabel: 'Month',
             yearLabel: 'Year',
+            sortYear: 'desc',
             monthLongValues: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             monthShortValues: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             initialDayMonthYearValues: ['Day', 'Month', 'Year'],
@@ -501,13 +502,23 @@
             if(this.config.maxDate !== null){
                 maxYear = new Date(this.config.maxDate).getFullYear();
             }
-
-            for (var i = maxYear; i >= minYear; i--) {
-                option = document.createElement('option');
-                option.setAttribute('value', i);
-                option.appendChild(document.createTextNode(i));
-                options.push(option);
+            var i;
+            if(this.config.sortYear === 'desc'){
+                for (i = maxYear; i >= minYear; i--) {
+                    option = document.createElement('option');
+                    option.setAttribute('value', i);
+                    option.appendChild(document.createTextNode(i));
+                    options.push(option);
+                }
+            }else{
+                for (i = minYear; i <= maxYear; i++) {
+                    option = document.createElement('option');
+                    option.setAttribute('value', i);
+                    option.appendChild(document.createTextNode(i));
+                    options.push(option);
+                }
             }
+            
 
             return options;
         },

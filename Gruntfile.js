@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         concat: {
             dist: {
                 src: ["src/jquery-dropdown-datepicker.js"],
-                dest: "dist/jquery-dropdown-datepicker.min.js"
+                dest: "dist/jquery-dropdown-datepicker.js"
             },
             options: {
                 banner: "<%= meta.banner %>"
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
         uglify: {
             my_target: {
                 src: ["dist/jquery-dropdown-datepicker.js"],
-                dest: "dist/jquery-dropdown-datepicker.js"
+                dest: "dist/jquery-dropdown-datepicker.min.js"
             },
             options: {
                 banner: "<%= meta.banner %>"

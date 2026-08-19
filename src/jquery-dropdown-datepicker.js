@@ -1,5 +1,5 @@
 /*
- *  jQuery Dropdown Datepicker - v1.0.0
+ *  jQuery Dropdown Datepicker - v1.3.0
  *  A simple, customisable date select plugin
  *
  *  Made by Md Shafkat Hussain Tanvir
@@ -38,11 +38,11 @@
             sortYear: 'desc',
             monthLongValues: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             monthShortValues: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            initialDayMonthYearValues: ['Day', 'Month', 'Year'],
             daySuffixValues: ['st', 'nd', 'rd', 'th'],
             onDayChange: null,
             onMonthChange: null,
-            onYearChange: null
+            onYearChange: null,
+            onChange: null
         };
 
     // The actual plugin constructor
@@ -67,7 +67,6 @@
          * Initialise the plugin
          */
         init: function () {
-            // this.checkForDuplicateElement();
             this.setInternalVariables();
             this.setupMarkup();
             this.buildDropdowns();
@@ -111,9 +110,7 @@
                 }
 
                 // Configure the input element and wrap
-                hiddenField = this.$element.wrap('<div class="' + this.config.wrapperClass + '"></div>');
-                // hiddenField = this.$element.attr('type', 'hidden')
-                    // .wrap('<div class="' + this.config.wrapperClass + '"></div>');
+                hiddenField = this.$element.wrap($('<div></div>').addClass(this.config.wrapperClass));
 
                 var customFieldNameProvided = (this.config.submitFieldName !== pluginDefaults.submitFieldName),
                     fieldHasName = this.element.hasAttribute('name');
@@ -150,12 +147,6 @@
 
         buildDropdowns: function () {
             var $dayDropdown, $dayOptions, $monthDropdown, $monthOptions, $yearDropdown, $yearOptions;
-
-            Plugin.message = {
-                day: this.config.initialDayMonthYearValues[0],
-                month: this.config.initialDayMonthYearValues[1],
-                year: this.config.initialDayMonthYearValues[2]
-            };
 
             var parts = this.processDefaultDate();
 
@@ -213,17 +204,11 @@
                 var day = $daySelect.val(),
                     month = $monthSelect.val(),
                     year = $yearSelect.val(),
-                    invalidDay,
-                    invalidMonth,
                     newDate,
                     $monthOptions,
                     $monthDropdown,
                     $dayOptions,
                     $dayDropdown;
-
-
-                // Find out whether the change has made the date invalid (e.g. 31st Feb)
-                // alert('ok');
 
                 if($(this).hasClass('day')){
                     if(typeof $that.config.onDayChange === 'function'){
@@ -270,7 +255,7 @@
                 objectRefs.hiddenField.val('');
 
                 // Only format the submit date if a full date has been selected
-                if (!invalidDay && !invalidMonth && (day * month * year !== 0)) {
+                if (day * month * year !== 0) {
                     newDate = pluginHandle.formatSubmitDate(day, month, year);
 
                     objectRefs.hiddenField.val(newDate);
@@ -432,7 +417,7 @@
             // Populate the month values
             for (var monthNo = start; monthNo <= end; monthNo++) {
 
-                var month;
+                var month, monthValue = monthNo < 10 ? '0' + monthNo : String(monthNo);
 
                 switch (this.config.monthFormat) {
                     case 'short':
@@ -450,12 +435,8 @@
                         break;
                 }
 
-                if (monthNo < 10) {
-                    monthNo = '0' + monthNo;
-                }
-
                 option = document.createElement('option');
-                option.setAttribute('value', monthNo);
+                option.setAttribute('value', monthValue);
                 option.appendChild(document.createTextNode(month));
                 options.push(option);
             }
@@ -543,6 +524,10 @@
                 day = '',
                 month = '',
                 year = '';
+
+            if (!date) {
+                return [day, month, year];
+            }
 
             switch (this.config.defaultDateFormat) {
                 case 'yyyy-mm-dd':
@@ -634,10 +619,7 @@
 
             switch (this.config.submitFormat) {
                 case 'unix':
-                    _date = new Date();
-                    _date.setDate(day);
-                    _date.setMonth(month - 1);
-                    _date.setYear(year);
+                    _date = new Date(year, month - 1, day);
                     formattedDate = Math.round(_date.getTime() / 1000);
                     break;
 
@@ -656,7 +638,9 @@
             var wrapperClass = this.config.wrapperClass;
 
             if (this.$element.hasClass(wrapperClass)) {
-                // this.$element.empty();
+                this.$element.find('select').remove();
+                this.internals.objectRefs.hiddenField.remove();
+                this.$element.removeClass(wrapperClass);
                 this.$element.removeData('plugin_' +pluginName);
             } else {
                 var $parent = this.$element.parent(),

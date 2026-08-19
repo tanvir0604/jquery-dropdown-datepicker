@@ -1,42 +1,58 @@
 # jQuery Dropdown Datepicker
 
-A simple and customization dropdown datepicker plugin made with jQuery.
+[![npm version](https://img.shields.io/npm/v/jquery-dropdown-datepicker.svg)](https://www.npmjs.com/package/jquery-dropdown-datepicker)
+[![npm downloads](https://img.shields.io/npm/dm/jquery-dropdown-datepicker.svg)](https://www.npmjs.com/package/jquery-dropdown-datepicker)
+[![license](https://img.shields.io/npm/l/jquery-dropdown-datepicker.svg)](LICENSE)
 
-## Check [Examples](https://tanvir0604.github.io/jquery-dropdown-datepicker/)
+A lightweight, dependency-free (beyond jQuery) plugin that turns an `<input>`
+or a container element into three cascading day/month/year `<select>`
+dropdowns, keeping a single formatted date value in sync as the user picks.
+
+**[Live examples](https://tanvir0604.github.io/jquery-dropdown-datepicker/)**
+
+## Features
+
+- Works on a plain `<input>` **or** a container element (`<div>`, etc.)
+- Configurable display order (`dmy` / `mdy` / `ymd`) and submit format
+- Age and date-range constraints (`minAge`/`maxAge`, `minDate`/`maxDate`,
+  `allowPast`/`allowFuture`) — handy for date-of-birth or range pickers
+- i18n-friendly: every label, month name, and ordinal suffix is overridable
+- `onChange` / `onDayChange` / `onMonthChange` / `onYearChange` callbacks
+- No external dependencies other than jQuery
+
+## Requirements
+
+[jQuery](https://jquery.com/) `>= 1.4`
 
 ## Installation
 
-### [jQuery](https://jquery.com/) is required to use this plugin
-
-### Package manager 
-#### Using [npm](https://www.npmjs.com)
-
 ```bash
-npm i jquery-dropdown-datepicker
+npm install jquery-dropdown-datepicker
 ```
-
-#### Using [yarn](https://yarnpkg.com)
 
 ```bash
 yarn add jquery-dropdown-datepicker
 ```
 
-#### Using [bower](https://bower.io)
-
 ```bash
 bower install jquery-dropdown-datepicker
 ```
 
-#### Using CDN
+Or via CDN:
 
-```code
-<script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.3.0/dist/jquery-dropdown-datepicker.min.js"></script>
+```html
+<script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.3.1/dist/jquery-dropdown-datepicker.min.js"></script>
 ```
-OR
-```code
-<script src="https://unpkg.com/jquery-dropdown-datepicker@1.3.0/dist/jquery-dropdown-datepicker.min.js"></script>
+
+```html
+<script src="https://unpkg.com/jquery-dropdown-datepicker@1.3.1/dist/jquery-dropdown-datepicker.min.js"></script>
 ```
+
 ## Usage
+
+```html
+<input type="text" id="date" readonly>
+```
 
 ```javascript
 $("#date").dropdownDatepicker({
@@ -48,41 +64,45 @@ $("#date").dropdownDatepicker({
 });
 ```
 
-## Options
-| Option                   | Type          | Defult          |Comment |
-| -------------            | ------------- | ----------      |--------|
-| defaultDate              | string        | null            |        |
-| defaultDateFormat        | string        | 'yyyy-mm-dd'    |        |
-| displayFormat            | string        | 'dmy'           |        |
-| submitFormat             | string        | 'yyyy-mm-dd'    |        |
-| minAge                   | int           | null            |        |
-| maxAge                   | int           | null            |        |
-| minYear                  | int           | null            |        |
-| maxYear                  | int           | null            |        |
-| minDate                  | string        | null            | yyyy-mm-dd |
-| maxDate                  | string        | null            | yyyy-mm-dd |
-| allowPast                | boolean       | true            |        |
-| allowFuture              | boolean       | true            |        |
-| submitFieldName          | string        | 'date'          |        |
-| wrapperClass             | string        | 'date-dropdowns'|        |
-| dropdownClass            | string        | null            |        |
-| daySuffixes              | boolean       | true            |        |
-| monthSuffixes            | boolean       | true            |        |
-| monthFormat              | string        | 'long'          |        |
-| required                 | boolean       | false           |        |
-| dayLabel                 | string        | 'Day            |        |
-| monthLabel               | string        | 'Month'         |        |
-| yearLabel                | string        | 'Year'          |        |
-| sortYear                 | string        | 'desc'          |        |
-| monthLongValues          | array         | ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']|   |
-| monthShortValues         | array         | ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] |    |
-| initialDayMonthYearValues| array         | ['Day', 'Month', 'Year'] |      |
-| daySuffixValues          | array         | ['st', 'nd', 'rd', 'th'] |      |
+The plugin builds three `<select>` elements next to the target and keeps a
+formatted date value in sync — as a hidden `<input>` if the target is a
+container element, or on the target itself if it's an `<input>`.
 
+## Options
+
+| Option              | Type    | Default           | Notes |
+| ------------------- | ------- | ----------------- | ----- |
+| `defaultDate`        | string  | `null`             | Pre-selects a date. Falls back to the target `<input>`'s existing value when omitted. |
+| `defaultDateFormat`  | string  | `'yyyy-mm-dd'`     | Format of `defaultDate`. One of `'yyyy-mm-dd'`, `'dd/mm/yyyy'`, `'mm/dd/yyyy'`, `'unix'`. |
+| `displayFormat`      | string  | `'ymd'`            | Order the dropdowns are rendered in: `'dmy'`, `'mdy'`, or `'ymd'`. |
+| `submitFormat`       | string  | `'yyyy-mm-dd'`     | Format written to the submit field. Tokens `dd`/`mm`/`yyyy`, or `'unix'` for a Unix timestamp. |
+| `minAge`             | int     | `null`             | Restricts selectable dates to at least this many years old. |
+| `maxAge`             | int     | `null`             | Restricts selectable dates to at most this many years old. |
+| `minYear`            | int     | `null`             | Lower bound for the year dropdown. |
+| `maxYear`            | int     | `null`             | Upper bound for the year dropdown. |
+| `minDate`            | string  | `null`             | `yyyy-mm-dd`. Lower bound for the selectable date. |
+| `maxDate`            | string  | `null`             | `yyyy-mm-dd`. Upper bound for the selectable date. |
+| `allowPast`          | boolean | `true`             | Allow dates before today. |
+| `allowFuture`        | boolean | `true`             | Allow dates after today. |
+| `submitFieldName`    | string  | `'date'`           | `name` attribute of the submit field. |
+| `wrapperClass`       | string  | `'date-dropdowns'` | Class applied to the wrapping element. |
+| `dropdownClass`      | string  | `null`             | Extra class(es) applied to each `<select>`. |
+| `daySuffixes`        | boolean | `true`             | Show ordinal suffixes (1st, 2nd, ...) in the day dropdown. |
+| `monthSuffixes`      | boolean | `true`             | Show ordinal suffixes when `monthFormat` is `'numeric'`. |
+| `monthFormat`        | string  | `'long'`           | `'long'`, `'short'`, or `'numeric'`. |
+| `required`           | boolean | `false`            | Marks all three `<select>` elements as required. |
+| `dayLabel`           | string  | `'Day'`            | Placeholder option text for the day dropdown. Falsy hides the placeholder. |
+| `monthLabel`         | string  | `'Month'`          | Placeholder option text for the month dropdown. |
+| `yearLabel`          | string  | `'Year'`           | Placeholder option text for the year dropdown. |
+| `sortYear`           | string  | `'desc'`           | `'desc'` or `'asc'` order for the year dropdown. |
+| `monthLongValues`    | array   | `['January', ..., 'December']` | Full month names, overridable for i18n. |
+| `monthShortValues`   | array   | `['Jan', ..., 'Dec']`          | Abbreviated month names, overridable for i18n. |
+| `daySuffixValues`    | array   | `['st', 'nd', 'rd', 'th']`     | Ordinal suffixes, overridable for i18n. |
 
 ## Events
+
 ### onChange
-Call on any change of day,month or year dropdown
+Fires on any change to the day, month, or year dropdown.
 ```javascript
 $("#date").dropdownDatepicker({
     onChange: function(day, month, year){
@@ -90,8 +110,9 @@ $("#date").dropdownDatepicker({
     }
 });
 ```
+
 ### onDayChange
-Call on any change of day dropdown
+Fires when the day dropdown changes.
 ```javascript
 $("#date").dropdownDatepicker({
     onDayChange: function(day, month, year){
@@ -101,7 +122,7 @@ $("#date").dropdownDatepicker({
 ```
 
 ### onMonthChange
-Call on any change of month dropdown
+Fires when the month dropdown changes.
 ```javascript
 $("#date").dropdownDatepicker({
     onMonthChange: function(day, month, year){
@@ -111,7 +132,7 @@ $("#date").dropdownDatepicker({
 ```
 
 ### onYearChange
-Call on any change of year dropdown
+Fires when the year dropdown changes.
 ```javascript
 $("#date").dropdownDatepicker({
     onYearChange: function(day, month, year){
@@ -121,22 +142,41 @@ $("#date").dropdownDatepicker({
 ```
 
 ## Methods
+
 ### destroy
-Call the destroy method to undo any changes made during the plugin's initialisation.
+Removes the generated dropdowns and restores the target element to its
+pre-init state.
 ```javascript
 $("#date").dropdownDatepicker('destroy');
 ```
 
+## Development
+
+```bash
+npm install
+npx grunt          # lint (jshint), then rebuild dist/
+npx grunt jshint    # lint only
+```
+
+Source lives in `src/jquery-dropdown-datepicker.js`; `dist/` is generated —
+don't edit it by hand. See [CLAUDE.md](CLAUDE.md) for more on the build
+pipeline and known gotchas.
 
 ## Contributing
-Contributing Feel free to submit any fixes or propose any additional functionality via pull request or issue, making sure any changes take place in /src. Any code changes must pass the JSHint validation, and where possible also update the minified file.
 
-Minification and Validation Both are automated via Grunt. Run npm install to install the required dependencies, then run grunt from the root of the project to handle the tasks.
+Fixes and new functionality are welcome via pull request or issue. Make sure
+any changes take place in `src/`, pass `npx grunt jshint`, and that `dist/`
+is rebuilt (`npx grunt`) and committed alongside the source change.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
 
 ## License
-[ISC](https://choosealicense.com/licenses/isc/)
 
-## Thanks Giving
-This plugin is made based on [jquery-date-dropdowns](https://github.com/IckleChris/jquery-date-dropdowns) 
+[ISC](LICENSE)
 
-Thanks to [IckleChris](https://github.com/IckleChris)
+## Acknowledgements
+
+Based on [jquery-date-dropdowns](https://github.com/IckleChris/jquery-date-dropdowns)
+by [IckleChris](https://github.com/IckleChris).

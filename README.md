@@ -3,6 +3,8 @@
 [![npm version](https://img.shields.io/npm/v/jquery-dropdown-datepicker.svg)](https://www.npmjs.com/package/jquery-dropdown-datepicker)
 [![npm downloads](https://img.shields.io/npm/dm/jquery-dropdown-datepicker.svg)](https://www.npmjs.com/package/jquery-dropdown-datepicker)
 [![license](https://img.shields.io/npm/l/jquery-dropdown-datepicker.svg)](LICENSE)
+[![open issues](https://img.shields.io/github/issues/tanvir0604/jquery-dropdown-datepicker.svg)](https://github.com/tanvir0604/jquery-dropdown-datepicker/issues)
+[![open pull requests](https://img.shields.io/github/issues-pr/tanvir0604/jquery-dropdown-datepicker.svg)](https://github.com/tanvir0604/jquery-dropdown-datepicker/pulls)
 
 A lightweight, dependency-free (beyond jQuery) plugin that turns an `<input>`
 or a container element into three cascading day/month/year `<select>`

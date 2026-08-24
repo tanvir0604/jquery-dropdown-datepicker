@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- **Selecting the year wiped out an already-picked day/month.** Cascading
+  resets on `year`/`month` change (`bindChangeEvent()`) unconditionally
+  cleared the downstream dropdown(s) instead of only clearing them when the
+  existing selection was no longer valid for the newly rebuilt options. For
+  `displayFormat: 'dmy'` in particular, this meant a user filling the form
+  left-to-right (day, then month, then year) had their day and month wiped
+  the moment they picked a year. Added `optionsHaveValue()` and used it to
+  re-select the previous day/month value
+  when it still exists in the rebuilt option set, only falling back to a
+  reset when the prior selection is genuinely no longer valid (e.g. Feb 29
+  selected, then the year changes to a non-leap year).
+
 ## [1.3.1] - 2026-08-17
 
 ### Fixed

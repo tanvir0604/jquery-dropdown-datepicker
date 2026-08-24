@@ -222,24 +222,42 @@
                     $monthDropdown = $that.addOptionsToDropdown($monthSelect, $monthOptions);
                     $that.internals.objectRefs.monthDropdown = $monthDropdown;
 
-                    month = null;
+                    if($that.optionsHaveValue($monthOptions, month)){
+                        $monthSelect.val(month);
+                    } else {
+                        month = null;
+                    }
+
                     $that.clearOptions($daySelect);
                     $dayOptions = $that.buildDayOptions(month, year);
                     $dayDropdown = $that.addOptionsToDropdown($daySelect, $dayOptions);
                     $that.internals.objectRefs.dayDropdown = $dayDropdown;
+
+                    if(month !== null && $that.optionsHaveValue($dayOptions, day)){
+                        $daySelect.val(day);
+                    } else {
+                        day = null;
+                    }
 
                     if(typeof $that.config.onYearChange === 'function'){
                         $that.config.onYearChange(day, month, year);
                     }
                 }
 
-                
+
 
                 if($(this).hasClass('month')){
                     $that.clearOptions($daySelect);
                     $dayOptions = $that.buildDayOptions(month, year);
                     $dayDropdown = $that.addOptionsToDropdown($daySelect, $dayOptions);
                     $that.internals.objectRefs.dayDropdown = $dayDropdown;
+
+                    if($that.optionsHaveValue($dayOptions, day)){
+                        $daySelect.val(day);
+                    } else {
+                        day = null;
+                    }
+
                     if(typeof $that.config.onMonthChange === 'function'){
                         $that.config.onMonthChange(day, month, year);
                     }
@@ -516,6 +534,21 @@
             parent.children('option').each(function(){
                 $(this).remove();
             });
+        },
+
+        // Checks whether a rebuilt option set still contains the given value,
+        // so a cascading change (year -> month, month -> day) can keep the
+        // user's existing selection instead of always resetting it.
+        optionsHaveValue: function(options, value){
+            if(value === null || value === '' || typeof value === 'undefined'){
+                return false;
+            }
+            for(var i = 0; i < options.length; i++){
+                if(options[i].value === value){
+                    return true;
+                }
+            }
+            return false;
         },
 
         processDefaultDate: function(){

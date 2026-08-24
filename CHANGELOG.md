@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Fixed
+- **`buildDayOptions()` showed an extra day (or ignored the day cutoff
+  entirely) whenever the allowed upper bound fell before the 10th.** The day
+  dropdown is built from two ranges — a single-digit loop (`01`-`09`) and a
+  double-digit loop (`10`-`31`) — normally clamped so together they cover
+  `[start1, end2]`. A leftover normalization step, `if (start2 > end2) {
+  end2 = start2; }`, ran whenever the true upper bound (`end2`, computed from
+  `allowFuture`/`minAge`/`maxDate`) landed below `10`: it forced `end2` back
+  up to `10` instead of leaving the now-empty double-digit loop alone, and
+  the single-digit loop's own end (`end1`, hardcoded to `9`) was never
+  clamped down to `end2` in the first place. In practice, with
+  `allowFuture: false`, picking any month/year that resolves to "today" (or
+  any `maxDate` whose day was under `10`) always produced every day from
+  `01` through `10` — e.g. on Nov 1st the day dropdown offered `01`-`10`
+  instead of just `01`; on Nov 9th it offered `01`-`10` instead of `01`-`09`.
+  Replaced both leftover lines with a single `if (end1 > end2) { end1 =
+  end2; }`, which clamps the single-digit loop down to the true cutoff and
+  lets the double-digit loop stay empty when the whole allowed range sits
+  below `10`.
 - **Selecting the year wiped out an already-picked day/month.** Cascading
   resets on `year`/`month` change (`bindChangeEvent()`) unconditionally
   cleared the downstream dropdown(s) instead of only clearing them when the

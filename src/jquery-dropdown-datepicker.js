@@ -350,11 +350,8 @@
             }
             
 
-            if(end1 > start2){
-                start2 = end1;
-            }
-            if(start2 > end2){
-                end2 = start2;
+            if(end1 > end2){
+                end1 = end2;
             }
 
 

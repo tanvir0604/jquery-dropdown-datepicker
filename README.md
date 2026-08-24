@@ -43,11 +43,11 @@ bower install jquery-dropdown-datepicker
 Or via CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.3.1/dist/jquery-dropdown-datepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-dropdown-datepicker@1.3.2/dist/jquery-dropdown-datepicker.min.js"></script>
 ```
 
 ```html
-<script src="https://unpkg.com/jquery-dropdown-datepicker@1.3.1/dist/jquery-dropdown-datepicker.min.js"></script>
+<script src="https://unpkg.com/jquery-dropdown-datepicker@1.3.2/dist/jquery-dropdown-datepicker.min.js"></script>
 ```
 
 ## Usage

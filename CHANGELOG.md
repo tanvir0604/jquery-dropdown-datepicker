@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.3.2] - 2026-08-24
+
 ### Fixed
 - **`buildDayOptions()` showed an extra day (or ignored the day cutoff
   entirely) whenever the allowed upper bound fell before the 10th.** The day
@@ -33,10 +35,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   `displayFormat: 'dmy'` in particular, this meant a user filling the form
   left-to-right (day, then month, then year) had their day and month wiped
   the moment they picked a year. Added `optionsHaveValue()` and used it to
-  re-select the previous day/month value
-  when it still exists in the rebuilt option set, only falling back to a
-  reset when the prior selection is genuinely no longer valid (e.g. Feb 29
-  selected, then the year changes to a non-leap year).
+  re-select the previous day/month value when it still exists in the
+  rebuilt option set, only falling back to a reset when the prior
+  selection is genuinely no longer valid (e.g. Feb 29 selected, then the
+  year changes to a non-leap year).
+
+### Changed
+- Added open-issues / open-pull-requests badges to `README.md`, sourced
+  from the GitHub repo already referenced by `package.json`'s
+  `repository`/`bugs` fields.
 
 ## [1.3.1] - 2026-08-17
 
@@ -125,7 +132,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [1.0.0] - 2019-04-04
 - Initial release.
 
-[Unreleased]: https://github.com/tanvir0604/jquery-dropdown-datepicker/compare/1.3.1...HEAD
+[Unreleased]: https://github.com/tanvir0604/jquery-dropdown-datepicker/compare/1.3.2...HEAD
+[1.3.2]: https://github.com/tanvir0604/jquery-dropdown-datepicker/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/tanvir0604/jquery-dropdown-datepicker/compare/1.2.0...1.3.1
 [1.3.0]: https://github.com/tanvir0604/jquery-dropdown-datepicker/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/tanvir0604/jquery-dropdown-datepicker/compare/1.1.0...1.2.0

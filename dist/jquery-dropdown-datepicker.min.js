@@ -1,5 +1,5 @@
 /*
- *  jQuery Dropdown Datepicker - v1.3.1
+ *  jQuery Dropdown Datepicker - v1.3.2
  *  A simple customizable jquery dropdown datepicker
  *
  *  Made by Md Shafkat Hussain Tanvir
